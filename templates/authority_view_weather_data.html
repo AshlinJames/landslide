@@ -1,0 +1,166 @@
+{%include 'authority_header.html'%}
+<br><br><br><br><br>
+<center>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #98e681;
+            margin: 0;
+            padding: 0;
+        }
+    
+    </style>
+
+    <title>Weather Data with Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        #map {
+            height: 500px;
+            width: 100%;
+        }
+        .controls {
+            margin-top: 10px;
+        }
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Weather Data with Interactive Map</h2>
+
+    <!-- Search Bar -->
+    <div class="controls">
+        <input type="text" id="search" placeholder="Search location..." />
+        <button onclick="searchLocation()">Search</button>
+    </div>
+
+    <!-- Input fields for coordinates and location name -->
+    <div class="controls">
+        <label>Coordinates: </label>
+        <input type="text" id="coordinates" readonly />
+        <br>
+        <label>Location Name: </label>
+        <input type="text" id="locationName" readonly />
+    </div>
+
+    <!-- Map Container -->
+    <div id="map"></div>
+
+    <h3>Weather Data</h3>
+    <button class="btn" onclick="fetchWeather()">Get Weather</button>
+
+    <table>
+        <tr><th>Parameter</th><th>Value</th></tr>
+        <tr><td>🌡️ Temperature</td><td id="temperature">-</td></tr>
+        <tr><td>💧 Humidity</td><td id="humidity">-</td></tr>
+        <tr><td>🌧️ Precipitation</td><td id="precipitation">-</td></tr>
+        <tr><td>❄️ Dew Point</td><td id="dewpoint">-</td></tr>
+        <tr><td>🌪️ Wind Speed</td><td id="windspeed">-</td></tr>
+        <tr><td>📏 Elevation</td><td id="elevation">-</td></tr>
+    </table>
+
+    <!-- Make Prediction Link (Initially Hidden) -->
+    <a id="predictLink" class="btn hidden" href="#">Make Prediction</a>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        let selectedLat = 20.5937;
+        let selectedLon = 78.9629;
+
+        // Initialize the map
+        const map = L.map('map').setView([selectedLat, selectedLon], 5);
+
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        async function searchLocation() {
+            const query = document.getElementById('search').value;
+            if (!query) return;
+
+            const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}`);
+            const results = await response.json();
+
+            if (results.length > 0) {
+                const { lat, lon, display_name } = results[0];
+                selectedLat = lat;
+                selectedLon = lon;
+                map.setView([lat, lon], 13);
+                document.getElementById('coordinates').value = `${lat}, ${lon}`;
+                document.getElementById('locationName').value = display_name;
+            } else {
+                alert('Location not found');
+            }
+        }
+
+        map.on('click', async (e) => {
+            const { lat, lng } = e.latlng;
+            selectedLat = lat;
+            selectedLon = lng;
+            document.getElementById('coordinates').value = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+
+            const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`);
+            const data = await response.json();
+
+            document.getElementById('locationName').value = data.display_name || 'Location not found';
+            fetchWeather();
+        });
+
+        async function fetchWeather() {
+            const response = await fetch(`/authority/get_weather?lat=${selectedLat}&lon=${selectedLon}`);
+            const data = await response.json();
+
+            if (data.success) {
+                document.getElementById("temperature").innerText = `${data.temperature}°C`;
+                document.getElementById("humidity").innerText = `${data.humidity}%`;
+                document.getElementById("precipitation").innerText = `${data.precipitation} mm`;
+                document.getElementById("dewpoint").innerText = `${data.dewpoint}°C`;
+                document.getElementById("windspeed").innerText = `${data.windspeed} m/s`;
+                document.getElementById("elevation").innerText = `${data.elevation} m`;
+
+                // Show Prediction Link and Set Redirect URL
+                const predictionLink = document.getElementById("predictLink");
+                predictionLink.href = `/authority/landslide_prediction?lat=${selectedLat}&lon=${selectedLon}&location=${encodeURIComponent(document.getElementById("locationName").value)}&temp=${data.temperature}&humidity=${data.humidity}&precipitation=${data.precipitation}&dewpoint=${data.dewpoint}&windspeed=${data.windspeed}&elevation=${data.elevation}`;
+                predictionLink.classList.remove("hidden");
+            } else {
+                alert("Failed to fetch weather data");
+            }
+        }
+    </script>
+    </center>
+    <br><br><br><br><br>
+    <br><br><br><br><br>
+    <br><br><br><br><br>
+    <br><br><br><br><br>
+
+{%include 'footer.html'%}

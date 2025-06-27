@@ -1,0 +1,275 @@
+{%include 'public_header.html'%}
+
+    <!-- <h2>Login</h2>
+    <form method="post">
+        <table>
+            <tr>
+                <th>Username:</th>
+                <td><input type="text" name="username" required></td>
+            </tr>
+            <tr>
+                <th>Password:</th>
+                <td><input type="password" name="password" required></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" name="submit" value="Login">
+                </td>
+            </tr>
+        </table>
+    </form> -->
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Welcome Back | Login</title>
+            <style>
+                * {
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+                }
+        
+                body {
+                    min-height: 100vh;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background: linear-gradient(45deg, #2c3e50, #34495e);
+                    padding: 20px;
+                    position: relative;
+                    overflow: hidden;
+                }
+        
+                /* Animated background elements */
+                .bg-elements {
+                    position: fixed;
+                    width: 100%;
+                    height: 100%;
+                    pointer-events: none;
+                }
+        
+                .bg-elements::before,
+                .bg-elements::after {
+                    content: '';
+                    position: absolute;
+                    width: 400px;
+                    height: 400px;
+                    border-radius: 50%;
+                    filter: blur(100px);
+                    opacity: 0.4;
+                    animation: float 15s infinite alternate ease-in-out;
+                }
+        
+                .bg-elements::before {
+                    background: #3498db;
+                    top: -100px;
+                    left: -100px;
+                }
+        
+                .bg-elements::after {
+                    background: #2ecc71;
+                    bottom: -100px;
+                    right: -100px;
+                    animation-delay: -7s;
+                }
+        
+                @keyframes float {
+                    0% { transform: translate(0, 0) rotate(0deg); }
+                    100% { transform: translate(50px, 50px) rotate(10deg); }
+                }
+        
+                .container {
+                    max-width: 1000px;
+                    width: 100%;
+                    background: rgba(255, 255, 255, 0.07);
+                    backdrop-filter: blur(20px);
+                    border-radius: 24px;
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+                    overflow: hidden;
+                    display: flex;
+                }
+        
+                .left-section {
+                    flex: 1;
+                    padding: 0;
+                    position: relative;
+                    background-size: cover;
+                    background-position: center;
+                }
+        
+                .left-section .image-overlay {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(135deg, rgba(52, 152, 219, 0.3), rgba(46, 204, 113, 0.3));
+                }
+        
+                .right-section {
+                    flex: 1;
+                    padding: 60px;
+                    background: rgba(255, 255, 255, 0.03);
+                }
+        
+                .login-form {
+                    max-width: 400px;
+                    margin: 0 auto;
+                }
+        
+                .login-form h2 {
+                    margin-bottom: 30px;
+                    color: white;
+                    font-size: 2em;
+                    text-align: center;
+                }
+        
+                .form-group {
+                    margin-bottom: 24px;
+                }
+        
+                .form-group input {
+                    width: 100%;
+                    padding: 16px;
+                    background: rgba(255, 255, 255, 0.05);
+                    border: 1px solid rgba(255, 255, 255, 0.15);
+                    border-radius: 14px;
+                    color: white;
+                    font-size: 1em;
+                    transition: all 0.3s ease;
+                }
+        
+                .form-group input:focus {
+                    outline: none;
+                    border-color: #2ecc71;
+                    background: rgba(255, 255, 255, 0.08);
+                    box-shadow: 0 0 0 4px rgba(46, 204, 113, 0.1);
+                }
+        
+                .form-group input::placeholder {
+                    color: rgba(255, 255, 255, 0.5);
+                }
+        
+                .login-btn {
+                    width: 100%;
+                    padding: 16px;
+                    background: linear-gradient(45deg, #3498db, #2ecc71);
+                    border: none;
+                    border-radius: 14px;
+                    color: white;
+                    font-size: 1em;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    font-weight: 600;
+                    letter-spacing: 0.5px;
+                }
+        
+                .login-btn:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 10px 25px rgba(52, 152, 219, 0.3);
+                }
+        
+                .social-login {
+                    margin-top: 40px;
+                    text-align: center;
+                }
+        
+                .social-login p {
+                    color: rgba(255, 255, 255, 0.7);
+                    margin-bottom: 20px;
+                    font-size: 0.95em;
+                }
+        
+                .social-icons {
+                    display: flex;
+                    justify-content: center;
+                    gap: 20px;
+                }
+        
+                .social-icon {
+                    width: 48px;
+                    height: 48px;
+                    background: rgba(255, 255, 255, 0.05);
+                    border: 1px solid rgba(255, 255, 255, 0.15);
+                    border-radius: 14px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    color: white;
+                    font-size: 1.2em;
+                }
+        
+                .social-icon:hover {
+                    background: rgba(255, 255, 255, 0.12);
+                    transform: translateY(-2px);
+                    border-color: rgba(255, 255, 255, 0.25);
+                }
+        
+                .home-link {
+                    display: block;
+                    text-align: center;
+                    margin-top: 30px;
+                    color: rgba(255, 255, 255, 0.7);
+                    text-decoration: none;
+                    transition: color 0.3s ease;
+                    font-size: 0.95em;
+                }
+        
+                .home-link:hover {
+                    color: #2ecc71;
+                }
+        
+                @media (max-width: 768px) {
+                    .container {
+                        flex-direction: column;
+                    }
+                    .left-section, .right-section {
+                        padding: 40px;
+                    }
+                }
+            </style>
+        </head>
+        <body>
+            <div class="bg-elements"></div>
+            <div class="container">
+                <div class="left-section" style="background-image: url('/static/assets/img/landslide2.avif');">
+                    <div class="image-overlay"></div>
+                </div>
+        
+                <div class="right-section">
+                    <form class="login-form" method="post">
+                        <h2>Welcome Back</h2>
+                        <div class="form-group">
+                            <input type="text" name="username" placeholder="Enter your username" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="password" placeholder="Enter your password" required>
+                        </div>
+                        <button type="submit" name="submit" class="login-btn">Login</button>
+                        
+                        <div class="social-login">
+                            <p>Or continue with your social account</p>
+                            <div class="social-icons">
+                                <div class="social-icon">f</div>
+                                <div class="social-icon">t</div>
+                                <div class="social-icon">G</div>
+                                <div class="social-icon">in</div>
+                            </div>
+                        </div>
+                        
+                        <a href="/" class="home-link">Return to Homepage</a>
+                    </form>
+                </div>
+            </div>
+        </body>
+        </html>
+        <br><br><br><br><br>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        
+</body>
+</html>

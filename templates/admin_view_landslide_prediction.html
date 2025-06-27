@@ -1,0 +1,94 @@
+{%include 'admin_header.html'%}
+<br><br><br><br><br>
+<center>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #c5e2f3;
+            margin: 0;
+            padding: 0;
+        }
+    
+    </style>
+
+    <title>Admin View Landslide Predictions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .high-risk {
+            color: red;
+            font-weight: bold;
+        }
+        .low-risk {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Admin - Landslide Prediction Reports</h2>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Authority ID</th>
+            <th>Location</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+            <th>Temperature (°C)</th>
+            <th>Humidity (%)</th>
+            <th>Precipitation (mm)</th>
+            <th>Dew Point (°C)</th>
+            <th>Wind Speed (m/s)</th>
+            <th>Elevation (m)</th>
+            <th>Soil Moisture</th>
+            <th>Date & Time</th>
+            <th>Prediction Result</th>
+        </tr>
+        {% for prediction in predictions %}
+        <tr>
+            <td>{{ prediction['predict_landslide_id'] }}</td>
+            <td>{{ prediction['authority_id'] }}</td>
+            <td>{{ prediction['location_name'] }}</td>
+            <td>{{ prediction['latitude'] }}</td>
+            <td>{{ prediction['longitude'] }}</td>
+            <td>{{ prediction['temperature'] }}</td>
+            <td>{{ prediction['humidity'] }}</td>
+            <td>{{ prediction['precipitation'] }}</td>
+            <td>{{ prediction['dew_point'] }}</td>
+            <td>{{ prediction['wind_speed'] }}</td>
+            <td>{{ prediction['elevation'] }}</td>
+            <td>{{ prediction['soil_moisture'] }}</td>
+            <td>{{ prediction['date_time'] }}</td>
+            <td class="{% if prediction['result'] == 'High Risk' %}high-risk{% else %}low-risk{% endif %}">
+                {{ prediction['result'] }}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</center>
+
+    <br><br><br><br><br>
+    <br><br><br><br><br>
+    <br><br><br><br><br>
+    <br><br><br><br><br>
+
+
+    {%include 'footer.html'%}

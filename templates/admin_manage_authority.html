@@ -1,0 +1,156 @@
+{%include 'admin_header.html'%}
+<br><br><br><br><br>
+<center>
+
+    <title>Manage Authorities</title>
+
+
+    <h2>Manage Authorities</h2>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #c5e2f3;
+            margin: 0;
+            padding: 0;
+        }
+
+    </style>    
+
+    
+    <!-- <form method="post">
+        <table>
+            <tr>
+                <th>Authority Name:</th>
+                <td><input type="text" name="authority_name" required></td>
+            </tr>
+            <tr>
+                <th>District:</th>
+                <td><input type="text" name="district" required></td>
+            </tr>
+            <tr>
+                <th>Place:</th>
+                <td><input type="text" name="place" required></td>
+            </tr>
+            <tr>
+                <th>Phone:</th>
+                <td><input type="text" name="phone" required></td>
+            </tr>
+            <tr>
+                <th>Email:</th>
+                <td><input type="email" name="email" required></td>
+            </tr>
+            <tr>
+                <th>Password:</th>
+                <td><input type="password" name="password" required></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" name="add_authority" value="Add Authority">
+                </td>
+            </tr>
+        </table>
+    </form> -->
+    <form method="post" style="background-color: #f4f4f9; padding: 20px; border-radius: 8px; width: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <table style="width: 100%; margin-bottom: 20px;">
+          <tr>
+            <th style="text-align: left; padding: 10px;">Authority Name:</th>
+            <td><input type="text" name="authority_name" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd;"></td>
+          </tr>
+          <tr>
+            <th style="text-align: left; padding: 10px;">District:</th>
+            <td><input type="text" name="district" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd;"></td>
+          </tr>
+          <tr>
+            <th style="text-align: left; padding: 10px;">Place:</th>
+            <td><input type="text" name="place" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd;"></td>
+          </tr>
+          <tr>
+            <th style="text-align: left; padding: 10px;">Phone:</th>
+            <td><input type="text" name="phone" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd;"></td>
+          </tr>
+          <tr>
+            <th style="text-align: left; padding: 10px;">Email:</th>
+            <td><input type="email" name="email" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd;"></td>
+          </tr>
+          <tr>
+            <th style="text-align: left; padding: 10px;">Password:</th>
+            <td><input type="password" name="password" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd;"></td>
+          </tr>
+          <tr>
+            <td colspan="2" align="center">
+              <input type="submit" name="add_authority" value="Add Authority" style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">
+            </td>
+          </tr>
+        </table>
+      </form>
+      <br><br><br><br><br>
+    <h3>Existing Authorities</h3>
+    <!-- <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Authority Name</th>
+            <th>District</th>
+            <th>Place</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        {% for authority in authorities %}
+        <tr>
+            <td>{{ authority['authority_id'] }}</td>
+            <td>{{ authority['authority_name'] }}</td>
+            <td>{{ authority['district'] }}</td>
+            <td>{{ authority['place'] }}</td>
+            <td>{{ authority['phone'] }}</td>
+            <td>{{ authority['email'] }}</td>
+            <td>{{ authority['status'] }}</td>
+            <td>
+                {% if authority['status'] == 'Active' %}
+                    <a href="{{ url_for('admin.update_authority_status', authority_id=authority['authority_id'], status='Inactive') }}" style="color: red;">Deactivate</a>
+                {% else %}
+                    <a href="{{ url_for('admin.update_authority_status', authority_id=authority['authority_id'], status='Active') }}" style="color: green;">Activate</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table> -->
+    
+    <table border="1" style="width: 80%; margin-top: 30px; border-collapse: collapse; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <tr style="background-color: #f2f2f2; color: #333;">
+          <th>ID</th>
+          <th>Authority Name</th>
+          <th>District</th>
+          <th>Place</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+        {% for authority in authorities %}
+        <tr style="text-align: center; background-color: #fff;">
+          <td>{{ authority['authority_id'] }}</td>
+          <td>{{ authority['authority_name'] }}</td>
+          <td>{{ authority['district'] }}</td>
+          <td>{{ authority['place'] }}</td>
+          <td>{{ authority['phone'] }}</td>
+          <td>{{ authority['email'] }}</td>
+          <td>{{ authority['status'] }}</td>
+          <td>
+            {% if authority['status'] == 'Active' %}
+            <a href="{{ url_for('admin.update_authority_status', authority_id=authority['authority_id'], status='Inactive') }}" style="color: red; text-decoration: none; font-weight: bold;">Deactivate</a>
+            {% else %}
+            <a href="{{ url_for('admin.update_authority_status', authority_id=authority['authority_id'], status='Active') }}" style="color: green; text-decoration: none; font-weight: bold;">Activate</a>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+</center>
+    <br><br><br><br><br>
+    <br><br><br><br><br>
+    <br><br><br><br><br>
+    <br><br><br><br><br>
+
+
+    {%include 'footer.html'%}

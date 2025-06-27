@@ -1,0 +1,97 @@
+{%include 'authority_header.html'%}
+<br><br><br><br><br>
+<center>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #98e681;
+            margin: 0;
+            padding: 0;
+        }
+    
+    </style>
+
+    <title>Verify Landslide Reports</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .rejected {
+            background-color: #dc3545;
+        }
+        .rejected:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Verify Landslide Reports</h2>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>User ID</th>
+            <th>Place</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        {% for report in user_reports %}
+        <tr>
+            <td>{{ report['user_report_id'] }}</td>
+            <td>{{ report['user_id'] }}</td>
+            <td>{{ report['place'] }}</td>
+            <td>{{ report['latitude'] }}</td>
+            <td>{{ report['longitude'] }}</td>
+            <td>{{ report['date'] }}</td>
+            <td>{{ report['time'] }}</td>
+            <td>{{ report['status'] }}</td>
+            <td>
+                {% if report['status'] == 'Pending' %}
+                    <a href="{{ url_for('authority.verify_landslide', report_id=report['user_report_id'], status='Verified') }}" class="btn">Verify</a>
+                    <a href="{{ url_for('authority.verify_landslide', report_id=report['user_report_id'], status='Rejected') }}" class="btn rejected">Reject</a>
+                {% else %}
+                    <strong>{{ report['status'] }}</strong>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</center>
+    <br><br><br><br><br>
+    <br><br><br><br><br>
+    <br><br><br><br><br>
+    <br><br><br><br><br>
+
+
+    {%include 'footer.html'%}

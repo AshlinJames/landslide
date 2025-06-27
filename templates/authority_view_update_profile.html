@@ -1,0 +1,73 @@
+{%include 'authority_header.html'%}
+<br><br><br><br><br>
+<center>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #98e681;
+            margin: 0;
+            padding: 0;
+        }
+    
+    </style>
+
+    <title>Authority Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        form {
+            width: 50%;
+            padding: 15px;
+            border: 1px solid #ccc;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Authority Profile</h2>
+
+    <form method="post">
+        <label for="authority_name">Name:</label>
+        <input type="text" name="authority_name" id="authority_name" value="{{ authority['authority_name'] }}" required>
+
+        <label for="district">District:</label>
+        <input type="text" name="district" id="district" value="{{ authority['district'] }}" required>
+
+        <label for="place">Place:</label>
+        <input type="text" name="place" id="place" value="{{ authority['place'] }}" required>
+
+        <label for="phone">Phone:</label>
+        <input type="text" name="phone" id="phone" value="{{ authority['phone'] }}" required>
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" value="{{ authority['email'] }}" required readonly>
+
+        <input type="submit" class="btn" name="update_profile" value="Update Profile">
+    </form>
+</center>
+    <br><br><br><br><br>
+    <br><br><br><br><br>
+    <br><br><br><br><br>
+    <br><br><br><br><br>
+
+
+    {%include 'footer.html'%}

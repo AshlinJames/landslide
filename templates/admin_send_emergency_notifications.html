@@ -1,0 +1,242 @@
+{%include 'admin_header.html'%}
+<br><br><br><br><br>
+<center>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #b8d7e9;
+            margin: 0;
+            padding: 0;
+        }
+    
+    </style>
+
+    <title>Send Emergency Notifications</title>
+    <style>
+       
+        .status-active {
+            color: green;
+            font-weight: bold;
+        }
+        .status-inactive {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+
+    <!-- Emergency Notification Form -->
+    <!-- <form method="post">
+        <table>
+            <tr>
+                <th>Title:</th>
+                <td><input type="text" name="title" required></td>
+            </tr>
+            <tr>
+                <th>Description:</th>
+                <td><textarea name="description" required></textarea></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" name="send_notification" value="Send Notification">
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <h3>Existing Emergency Notifications</h3>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Status</th>
+        </tr>
+        {% for notification in notifications %}
+        <tr>
+            <td>{{ notification['emergency_notification_id'] }}</td>
+            <td>{{ notification['title'] }}</td>
+            <td>{{ notification['description'] }}</td>
+            <td>{{ notification['date'] }}</td>
+                <td class="{% if 'ago' in notification['status'] %} status-inactive {% elif notification['status'] == 'Now' %}status-active{% else %}status-inactive{% endif %}">
+                {{ notification['status'] }}
+            </td>
+        </tr>
+        {% endfor %}
+    </table> -->
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fafbfc;
+        }
+
+        .container {
+            width: 80%;
+            margin: 40px auto;
+        }
+
+        /* Form Styles */
+        .form-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-container table {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .form-container th {
+            text-align: left;
+            padding: 10px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .form-container td {
+            padding: 10px;
+        }
+
+        .form-container input[type="text"],
+        .form-container textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .form-container textarea {
+            height: 120px;
+        }
+
+        .form-container input[type="submit"] {
+            width: 200px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+            display: block;
+            margin: 20px auto 0;
+        }
+
+        .form-container input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table th,
+        table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #f2f2f2;
+            font-size: 16px;
+            color: #333;
+        }
+
+        table td {
+            font-size: 14px;
+            color: #555;
+        }
+
+        /* Status Badge Styles */
+        .status-active {
+            color: #4CAF50;
+            font-weight: bold;
+            background-color: #e7f9e7;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        .status-inactive {
+            color: #f44336;
+            font-weight: bold;
+            background-color: #ffe6e6;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Notification Form -->
+        <div class="form-container">
+            <h2>Send Emergency Notification</h2>
+            <form method="post">
+                <table>
+                    <tr>
+                        <th>Title:</th>
+                        <td><input type="text" name="title" required></td>
+                    </tr>
+                    <tr>
+                        <th>Description:</th>
+                        <td><textarea name="description" required></textarea></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <input type="submit" name="send_notification" value="Send Notification">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+
+        <!-- Existing Notifications Table -->
+        <h3>Existing Emergency Notifications</h3>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+            {% for notification in notifications %}
+            <tr>
+                <td>{{ notification['emergency_notification_id'] }}</td>
+                <td>{{ notification['title'] }}</td>
+                <td>{{ notification['description'] }}</td>
+                <td>{{ notification['date'] }}</td>
+                <td class="{% if 'ago' in notification['status'] %} status-inactive {% elif notification['status'] == 'Now' %} status-active {% else %} status-inactive {% endif %}">
+                    {{ notification['status'] }}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    <br><br><br><br><br>
+    <br><br><br><br><br>
+    <br><br><br><br><br>
+    <br><br><br><br><br>
+</center>
+
+    {%include 'footer.html'%}

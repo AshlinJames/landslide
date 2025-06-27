@@ -1,0 +1,136 @@
+{%include 'admin_header.html'%}
+<br><br><br><br><br>
+<center>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #c5e2f3;
+            margin: 0;
+            padding: 0;
+        }
+    
+    </style>
+
+    <title>View Landslide Reports</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+    <script>
+        function showReport(reportType) {
+            if (reportType === 'user') {
+                document.getElementById('user_reports').classList.remove('hidden');
+                document.getElementById('authority_reports').classList.add('hidden');
+            } else {
+                document.getElementById('user_reports').classList.add('hidden');
+                document.getElementById('authority_reports').classList.remove('hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <h2>View Landslide Reports</h2>
+
+    <!-- Filter Buttons -->
+    <button class="btn" onclick="showReport('user')">User Reports</button>
+    <button class="btn" onclick="showReport('authority')">Authority Reports</button>
+
+    <br><br><br><br><br>    
+
+    <!-- User Reports Table -->
+    <div id="user_reports">
+        <h3>User Reports</h3>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>User ID</th>
+                <th>Place</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+            </tr>
+            {% for report in user_reports %}
+            <tr>
+                <td>{{ report['user_report_id'] }}</td>
+                <td>{{ report['user_id'] }}</td>
+                <td>{{ report['place'] }}</td>
+                <td>{{ report['latitude'] }}</td>
+                <td>{{ report['longitude'] }}</td>
+                <td>{{ report['date'] }}</td>
+                <td>{{ report['time'] }}</td>
+                <td>{{ report['status'] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <!-- Authority Reports Table -->
+    <div id="authority_reports" class="hidden">
+        <h3>Authority Reports</h3>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Authority ID</th>
+                <th>Place Name</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+            </tr>
+            {% for report in authority_reports %}
+            <tr>
+                <td>{{ report['authority_report_id'] }}</td>
+                <td>{{ report['authority_id'] }}</td>
+                <td>{{ report['place_name'] }}</td>
+                <td>{{ report['latitude'] }}</td>
+                <td>{{ report['longitude'] }}</td>
+                <td>{{ report['date'] }}</td>
+                <td>{{ report['time'] }}</td>
+                <td>{{ report['status'] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    </div>
+</center>
+    <br><br><br><br><br>
+    <br><br><br><br><br>
+    <br><br><br><br><br>
+    <br><br><br><br><br>
+
+
+    {%include 'footer.html'%}
